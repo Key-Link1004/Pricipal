@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Happy Teacher's Day!</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Amatic+SC:wght@400;700&display=swap">
+    <style>
+        :root {
+            --bg: #FDE3A7;
+            --ink: #013243;
+            --teal: #1BBC9B;
+            --teal2: #0e8f76;
+            --red: #FD2D00;
+            --gold: #f6c453;
+            --paper: #fffaf0;
+            box-sizing: border-box;
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px)
+        }
+
+        @media (prefers-color-scheme:dark) {
+            :root:not([data-theme="light"]) {
+                --bg: #2e2212;
+                --ink: #ffeccb
+            }
+        }
+
+        :root[data-theme="dark"] {
+            --bg: #2e2212;
+            --ink: #ffeccb
+        }
+
+        html {
+            height: 100%;
+            scroll-padding-top: env(safe-area-inset-top, 0px)
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            min-height: 100%;
+            background: radial-gradient(90% 60% at 50% 0%, rgba(255, 255, 255, .35), transparent), var(--bg);
+            color: var(--ink);
+            font-family: "Indie Flower", "Segoe Print", "Bradley Hand", cursive;
+            overflow-x: hidden
+        }
+
+        #fx {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 30
+        }
+
+        #fx b {
+            position: absolute;
+            font-weight: 400;
+            animation: fall linear forwards
+        }
+
+        #fx b.up {
+            top: auto;
+            bottom: -40px;
+            animation-name: up;
+            opacity: .35
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(112vh) rotate(400deg)
+            }
+        }
+
+        @keyframes up {
+            to {
+                transform: translateY(-112vh) rotate(60deg)
+            }
+        }
+
+        .stage {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 22px;
+            padding: 24px 14px
+        }
+
+        .scene {
+            perspective: 1800px
+        }
+
+        .card {
+            position: relative;
+            width: min(88vw, 360px);
+            height: min(76vh, 580px);
+            min-height: 440px;
+            transform-style: preserve-3d;
+            transition: transform 1.2s cubic-bezier(.6, .1, .2, 1);
+            transform: rotateY(-10deg) rotateX(4deg);
+            animation: float 4s ease-in-out infinite
+        }
+
+        .card.open {
+            transform: none;
+            animation: none
+        }
+
+        @keyframes float {
+            50% {
+                transform: rotateY(-10deg) rotateX(4deg) translateY(-8px)
+            }
+        }
+
+        /* inside */
+        .inside {
+            position: absolute;
+            inset: 0;
+            background: var(--paper);
+            border-radius: 6px 16px 16px 6px;
+            box-shadow: 0 22px 60px rgba(0, 0, 0, .35), inset 14px 0 22px -10px rgba(0, 0, 0, .22);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            color: #013243
+        }
+
+        .scroll {
+            flex: 1;
+            overflow-y: auto;
+            padding: 22px 22px 10px 28px;
+            -webkit-overflow-scrolling: touch;
+            background-image: repeating-linear-gradient(transparent 0 27px, rgba(27, 188, 155, .16) 27px 28px);
+            scrollbar-width: thin
+        }
+
+        .gif {
+            position: relative;
+            height: 150px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 14px;
+            background: transparent;
+            border: 2.5px dashed var(--teal);
+            display: grid;
+            place-items: center;
+            text-align: center
+        }
+
+        .gif img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border: 0
+            
+        }
+
+        .gif .ph {
+            font-size: 17px;
+            line-height: 1.2;
+            padding: 8px
+        }
+
+        .gif .ph span {
+            display: block;
+            font-size: 42px
+        }
+
+        .gif.has {
+            border-style: none;
+            border-color: #fff
+        }
+
+        .gif.has .ph {
+            display: none
+        }
+
+        h4 {
+            font-family: "Amatic SC", cursive;
+            margin: 0;
+            font-weight: 700;
+            line-height: 1
+        }
+
+        .to {
+            font-size: 40px;
+            color: var(--teal2)
+        }
+
+        .hb {
+            font-size: 34px;
+            color: var(--red);
+            margin: 2px 0 10px
+        }
+
+        .scroll p {
+            margin: 0 0 14px;
+            font-size: 18px;
+            line-height: 28px;
+            opacity: 0;
+            transform: translateY(10px)
+        }
+
+        .open .scroll p,
+        .open .scroll h4 {
+            animation: rise .7s both;
+            animation-delay: calc(var(--i)*.28s + 1s)
+        }
+
+        @keyframes rise {
+            from {
+                opacity: 0;
+                transform: translateY(10px)
+            }
+
+            to {
+                opacity: 1;
+                transform: none
+            }
+        }
+
+        .open .scroll h4 {
+            opacity: 0
+        }
+
+        .sig {
+            margin-top: 6px
+        }
+
+        .sig p {
+            margin: 0 0 2px
+        }
+
+        .name {
+            font-family: "Amatic SC", cursive;
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--teal2);
+            line-height: 1
+        }
+
+        .bar {
+            display: flex;
+            gap: 8px;
+            padding: 10px 14px;
+            border-top: 1px solid rgba(0, 0, 0, .08);
+            background: rgba(255, 250, 240, .95)
+        }
+
+        .bar button {
+            flex: 1;
+            padding: 10px;
+            border-radius: 999px;
+            border: 2px solid var(--teal);
+            background: transparent;
+            color: var(--teal2);
+            font: 700 16px "Indie Flower", cursive;
+            cursor: pointer
+        }
+
+        .bar button.pri {
+            background: var(--teal);
+            color: #fff
+        }
+
+        .bar button:active {
+            transform: scale(.95)
+        }
+
+        :focus-visible {
+            outline: 3px solid var(--red);
+            outline-offset: 3px
+        }
+
+        /* cover */
+        .cover {
+            position: absolute;
+            inset: 0;
+            transform-origin: left center;
+            transform-style: preserve-3d;
+            transition: transform 1.3s cubic-bezier(.6, .1, .2, 1), visibility 0s 0s;
+            cursor: pointer;
+            z-index: 3
+        }
+
+        .open .cover {
+            transform: rotateY(-172deg);
+            visibility: hidden;
+            transition: transform 1.3s cubic-bezier(.6, .1, .2, 1), visibility 0s 1.3s;
+            pointer-events: none
+        }
+
+        .face {
+            position: absolute;
+            inset: 0;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            border-radius: 6px 16px 16px 6px
+        }
+
+        .front {
+            background: radial-gradient(circle at 30% 18%, #4fe0c0, var(--teal) 45%, var(--teal2));
+            box-shadow: 0 22px 60px rgba(0, 0, 0, .4), inset 10px 0 18px rgba(0, 0, 0, .2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 26px;
+            color: #fff
+        }
+
+        .front:before {
+            content: "";
+            position: absolute;
+            inset: 12px 12px 12px 18px;
+            border: 3px double var(--gold);
+            border-radius: 6px 12px 12px 6px;
+            pointer-events: none
+        }
+
+        .back {
+            transform: rotateY(180deg);
+            background: #f3ead2
+        }
+
+        .front .ap {
+            font-size: 78px;
+            line-height: 1;
+            animation: bob 2.4s ease-in-out infinite
+        }
+
+        @keyframes bob {
+            50% {
+                transform: translateY(-8px) rotate(-6deg)
+            }
+        }
+
+        .front h1 {
+            font-family: "Amatic SC", cursive;
+            font-size: clamp(52px, 16vw, 70px);
+            line-height: .9;
+            margin: 12px 0 6px;
+            text-shadow: 0 3px 0 rgba(0, 0, 0, .18)
+        }
+
+        .front .sub {
+            font-size: 22px;
+            color: #fff3c4
+        }
+
+        .front .tap {
+            margin-top: 26px;
+            padding: 8px 20px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, .22);
+            font-size: 17px;
+            animation: pulse 1.6s ease-in-out infinite
+        }
+
+        @keyframes pulse {
+            50% {
+                transform: scale(1.08);
+                background: rgba(255, 255, 255, .36)
+            }
+        }
+
+        .hint {
+            font-size: 19px;
+            opacity: .85;
+            text-align: center;
+            transition: opacity .5s
+        }
+
+        .hint.hide {
+            opacity: 0
+        }
+
+        @media (prefers-reduced-motion:reduce) {
+            * {
+                animation: none !important
+            }
+
+            .card,
+            .cover {
+                transition-duration: .01s !important
+            }
+
+            .scroll p,
+            .open .scroll h4 {
+                opacity: 1;
+                transform: none
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="fx" aria-hidden="true"></div>
+    <div class="stage">
+        <div class="scene">
+            <div class="card" id="card">
+                <div class="inside" id="inside" inert>
+                    <div class="scroll" id="scroll" tabindex="0">
+                        <div class="gif" id="gifBox">
+                            <img id="gif" alt="An animated heart thanking a teacher" hidden>
+                            <div class="ph"><span>💛</span>A little thank-you,<br>made with love</div>
+                        </div>
+                        <h4 class="to" style="--i:0">Dear <span class="nm-to"></span>,</h4>
+                        <h4 class="hb" style="--i:1">Happy Teacher’s Day!</h4>
+                        <p style="--i:2">Some of the most meaningful lessons we learn are not found in textbooks—they
+                            come from the kindness, patience, and example of the people who guide us. Thank you for
+                            believing in us, encouraging us to try again, and helping us discover what we are capable
+                            of. Your support means more to us than words can say.</p>
+                        <p style="--i:3">As our principal, you make our school feel like a place where we can learn,
+                            grow, and feel cared for. Your guidance inspires us to become confident, responsible, and
+                            compassionate Ildefonsians. We will carry your encouragement with us wherever our dreams
+                            take us.</p>
+                        <p style="--i:4">We hope you know how deeply you are appreciated—not only today, but every day.
+                            May God bless you with the same kindness, joy, and hope that you so generously share with
+                            all of us.</p>
+                        <p style="--i:5">Happy Teacher’s Day, <span class="nm-to"></span>!</p>
+                        <div class="sig">
+                            <p style="--i:6">With gratitude and respect,</p>
+                            <p class="name" style="--i:7;font-size:48px" id="from"></p>
+                        </div>
+                    </div>
+                    <div class="bar">
+                        <button class="pri" id="hug">💛 Send thanks</button>
+                        <button id="close">Close card</button>
+                    </div>
+                </div>
+                <div class="cover" id="cover" role="button" tabindex="0" aria-label="Open the card">
+                    <div class="face front">
+                        <div class="ap">📖</div>
+                        <h1>Happy Teacher’s Day</h1>
+                        <div class="sub">To our dear principal</div>
+                        <div class="tap">tap to open ✨</div>
+                    </div>
+                    <div class="face back"></div>
+                </div>
+            </div>
+        </div>
+        <div class="hint"></div>
+    </div>
+    <script>
+        (function () {
+            /* ===== EDIT HERE ===== */
+            var TO = "Ma’am Joan";   // change to "Ma’am Joanne" if that is her name
+            var FROM = "Esme";
+            var GIF_URL = "asset/love.gif";  // optional: set to a GIF URL or leave empty for no GIF
+            /* ===================== */
+            var $ = function (s) { return document.querySelector(s) };
+            var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+            var q = new URLSearchParams(location.search); if (q.get("from")) FROM = q.get("from").slice(0, 40);
+            document.querySelectorAll(".nm-to").forEach(function (e) { e.textContent = TO });
+            $("#from").textContent = FROM;
+
+            /* GIF placeholder: shows the real GIF once GIF_URL is set and loads */
+            if (GIF_URL) { var g = $("#gif"); g.onload = function () { g.hidden = false; $("#gifBox").classList.add("has") }; g.onerror = function () { g.hidden = true }; g.src = GIF_URL }
+
+            /* particles */
+            var fx = $("#fx");
+            function rain(list, n, cls) { if (reduce) return; for (var i = 0; i < n; i++) { var b = document.createElement("b"); b.textContent = list[i % list.length]; if (cls) b.className = cls; b.style.left = Math.random() * 100 + "%"; b.style.top = cls ? "auto" : "-40px"; b.style.fontSize = (16 + Math.random() * 18) + "px"; b.style.animationDuration = (cls ? 14 : 2.8) + Math.random() * (cls ? 8 : 2.5) + "s"; b.style.animationDelay = (cls ? -Math.random() * 14 : Math.random() * .8) + "s"; fx.appendChild(b); if (!cls) setTimeout(function (e) { e.remove() }, 7000, b) } }
+            rain(["🍎", "✏️", "📚", "⭐", "🌸"], 9, "up");
+
+            var card = $("#card"), inside = $("#inside");
+            function openCard() {
+                if (card.classList.contains("open")) return;
+                card.classList.add("open"); inside.inert = false; $(".hint").classList.add("hide");
+                rain(["✨", "⭐", "💛", "🌸", "🎉"], 36);
+                setTimeout(function () { $("#scroll").focus({ preventScroll: true }) }, 1400);
+            }
+            function closeCard() {
+                card.classList.remove("open"); inside.inert = true; $(".hint").classList.remove("hide"); $("#scroll").scrollTop = 0;
+                card.style.animation = "";
+            }
+            $("#cover").addEventListener("click", openCard);
+            $("#cover").addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openCard() } });
+            $("#close").addEventListener("click", closeCard);
+            $("#hug").addEventListener("click", function () {
+                rain(["💛", "❤️", "🌸", "✨"], 50); this.textContent = "Sent with love 💛";
+            });
+        })();
+    </script>
+</body>
+
+</html>
